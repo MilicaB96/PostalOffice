@@ -50,7 +50,7 @@ class PostOffice {
           resolve(letter);
         }, 3000);
       } else {
-        reject(Error("We lost the letter, Oopsie!"));
+        reject(Error("We lost the letter!"));
       }
     });
   }
