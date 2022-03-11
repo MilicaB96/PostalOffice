@@ -3,10 +3,10 @@ class Queue {
     this.list = [];
   }
   enqueue(letter) {
-    return this.list.push(letter);
+    this.list.push(letter);
   }
   dequeue() {
-    return this.list.shift();
+    this.list.shift();
   }
   front() {
     return this.list[0];
@@ -45,17 +45,16 @@ class PostOffice {
   }
   sendLetter(letter) {
     return new Promise((resolve, reject) => {
-      if (Math.random() > 0.1) {
-        setTimeout(() => {
+      setTimeout(() => {
+        if (Math.random() > 0.2) {
           resolve(letter);
-        }, 3000);
-      } else {
-        reject(Error("We lost the letter!"));
-      }
+        } else {
+          reject(new Error("We lost the letter!"));
+        }
+      }, 3000);
     });
   }
 }
-
 class Customer {
   constructor(firstName, lastName) {
     this.firstName = firstName;
@@ -73,9 +72,9 @@ class Customer {
   }
 }
 class Letter {
-  constructor(content) {
-    this.sender = new Customer();
-    this.receiver = new Customer();
+  constructor(content, receiver, sender) {
+    this.sender = sender;
+    this.receiver = receiver;
     this.content = content;
   }
 }
@@ -84,15 +83,9 @@ let PostaSrbije = new PostOffice();
 let person1 = new Customer("Marko", "Markovic");
 let person2 = new Customer("Ivan", "Ivanovic");
 
-let letter1 = new Letter("Hello there!");
-let letter2 = new Letter("Hello again!");
-let letter3 = new Letter("Mailing this to myself");
-letter1.sender = person1;
-letter1.receiver = person2;
-letter2.sender = person2;
-letter2.receiver = person1;
-letter3.sender = person1;
-letter3.receiver = person1;
+let letter1 = new Letter("Hello there!", person1, person2);
+let letter2 = new Letter("Hello again!", person2, person1);
+let letter3 = new Letter("Mailing this to myself", person1, person1);
 // console.log(letter1);
 // console.log(letter2);
 
